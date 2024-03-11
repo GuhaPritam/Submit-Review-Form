@@ -53,7 +53,7 @@ const InputForm = () => {
                         </form>
                     </div>
                 </div>
-                <div>
+                <div className="overflow-auto" style={{ maxHeight: "400px" }}>
                     {submittedData.map((data, index) => (
                         <div key={index} className="bg-gray-200 rounded-md px-4 py-2 mb-4">
                             <h2 className="text-lg font-bold mb-2">Submitted Data {index + 1}:</h2>
