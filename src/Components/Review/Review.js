@@ -19,7 +19,7 @@ const InputForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const currentTime = new Date().toLocaleTimeString();
-        const newData = { ...formData, time: currentTime };
+        const newData = { ...formData, time: currentTime, number: submittedData.length + 1 };
         setSubmittedData([...submittedData, newData]);
         setFormData(initialValue);
     };
@@ -56,7 +56,7 @@ const InputForm = () => {
                 <div className="overflow-auto" style={{ maxHeight: "400px" }}>
                     {submittedData.map((data, index) => (
                         <div key={index} className="bg-gray-200 rounded-md px-4 py-2 mb-4">
-                            <h2 className="text-lg font-bold mb-2">Submitted Data {index + 1}:</h2>
+                            <h2 className="text-lg font-bold mb-2">Submitted Data {data.number}:</h2>
                             <p>User: {data.user}</p>
                             <p>Reason: {data.reason}</p>
                             <p>Location: {data.location}</p>
