@@ -5,6 +5,7 @@ const InputForm = () => {
     const initialValue = { user: '', reason: '', location: '' }
     const [formData, setFormData] = useState(initialValue);
     const [submittedData, setSubmittedData] = useState([]);
+    const [editMode, setEditMode] = useState(false);
 
     const isFormValid = formData.user && formData.reason && formData.location;
 
@@ -27,6 +28,10 @@ const InputForm = () => {
     const handleDelete = (index) => {
         const updatedData = submittedData.filter((_, i) => i !== index);
         setSubmittedData(updatedData);
+    };
+
+    const handleEdit = () => {
+        setEditMode(!editMode)
     };
 
     return (
@@ -61,6 +66,9 @@ const InputForm = () => {
                             <p>Reason: {data.reason}</p>
                             <p>Location: {data.location}</p>
                             <p>Time: {data.time}</p>
+                            <Button variant="contained" onClick={() => handleEdit()}>
+                                {editMode ? 'Save' : 'Edit'}
+                            </Button>
                             <Button variant="contained" onClick={() => handleDelete(index)}>
                                 Delete
                             </Button>
