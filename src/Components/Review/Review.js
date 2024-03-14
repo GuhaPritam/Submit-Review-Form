@@ -5,7 +5,7 @@ const InputForm = () => {
     const initialValue = { user: '', reason: '', location: '' }
     const [formData, setFormData] = useState(initialValue);
     const [submittedData, setSubmittedData] = useState([]);
-    const [editMode, setEditMode] = useState(false);
+    // const [editMode, setEditMode] = useState(false);
 
     const isFormValid = formData.user && formData.reason && formData.location;
 
@@ -30,9 +30,26 @@ const InputForm = () => {
         setSubmittedData(updatedData);
     };
 
-    const handleEdit = () => {
-        setEditMode(!editMode)
+    const handleEdit = (index) => {
+        const updatedData = [...submittedData];
+        updatedData[index].editing = true; 
+        setSubmittedData(updatedData);
     };
+
+    const handleSave = (index) => {
+        const updatedData = [...submittedData];
+        updatedData[index].editing = false; 
+        setSubmittedData(updatedData);
+    };
+
+    const handleInputChange = (e, index) => {
+        const { name, value } = e.target;
+        const updatedData = [...submittedData];
+        updatedData[index][name] = value;
+        setSubmittedData(updatedData);
+    };
+// Jokhun edit button change hoe save hobe tokhun input field gulo open hobe change korar jonno.
+// Change korar por oi submited data update hoe jabe.
 
     return (
         <div className="flex justify-center items-center h-screen">
@@ -62,13 +79,34 @@ const InputForm = () => {
                     {submittedData.map((data, index) => (
                         <div key={index} className="bg-gray-200 rounded-md px-4 py-2 mb-4">
                             <h2 className="text-lg font-bold mb-2">Submitted Data {data.number}:</h2>
-                            <p>User: {data.user}</p>
-                            <p>Reason: {data.reason}</p>
-                            <p>Location: {data.location}</p>
-                            <p>Time: {data.time}</p>
-                            <Button variant="contained" onClick={() => handleEdit()}>
-                                {editMode ? 'Save' : 'Edit'}
-                            </Button>
+                            {data.editing ? (
+                                <>
+                                    <div className="mb-2">
+                                        <label htmlFor={`user_${index}`} className="block text-gray-700 text-sm font-bold mb-2">User:</label>
+                                        <input type="text" id={`user_${index}`} name="user" value={data.user} onChange={(e) => handleInputChange(e, index)} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
+                                    </div>
+                                    <div className="mb-2">
+                                        <label htmlFor={`reason_${index}`} className="block text-gray-700 text-sm font-bold mb-2">Reason:</label>
+                                        <input type="text" id={`reason_${index}`} name="reason" value={data.reason} onChange={(e) => handleInputChange(e, index)} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
+                                    </div>
+                                    <div className="mb-2">
+                                        <label htmlFor={`location_${index}`} className="block text-gray-700 text-sm font-bold mb-2">Location:</label>
+                                        <input type="text" id={`location_${index}`} name="location" value={data.location} onChange={(e) => handleInputChange(e, index)} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
+                                    </div>
+                                    <Button variant="contained" onClick={() => handleSave(index)}>
+                                        Save
+                                    </Button>
+                                </>
+                            ) : (
+                                <>
+                                    <p>User: {data.user}</p>
+                                    <p>Reason: {data.reason}</p>
+                                    <p>Location: {data.location}</p>
+                                    <Button variant="contained" onClick={() => handleEdit(index)}>
+                                        Edit
+                                    </Button>
+                                </>
+                            )}
                             <Button variant="contained" onClick={() => handleDelete(index)}>
                                 Delete
                             </Button>
