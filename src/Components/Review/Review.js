@@ -5,6 +5,7 @@ const InputForm = () => {
     const initialValue = { user: '', reason: '', location: '' };
     const [formData, setFormData] = useState(initialValue);
     const [submittedData, setSubmittedData] = useState([]);
+    const [cancelData, setCancelData] = useState(null)
 
     const isFormValid = formData.user && formData.reason && formData.location;
 
@@ -32,6 +33,7 @@ const InputForm = () => {
     const handleEdit = (index) => {
         const updatedData = [...submittedData];
         updatedData[index].editing = true;
+        setCancelData({ ...submittedData[index] });
         setSubmittedData(updatedData);
     };
 
@@ -43,6 +45,11 @@ const InputForm = () => {
 
     const handleCancel = (index) => {
         const updatedData = [...submittedData];
+        // console.log(cancelData)
+        if (cancelData) {
+            updatedData[index] = cancelData;
+            setCancelData(null);
+        }
         updatedData[index].editing = false;
         setSubmittedData(updatedData);
     };
