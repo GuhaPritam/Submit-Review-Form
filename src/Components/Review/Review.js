@@ -2,10 +2,9 @@ import { Button } from '@mui/material';
 import React, { useState } from 'react';
 
 const InputForm = () => {
-    const initialValue = { user: '', reason: '', location: '' }
+    const initialValue = { user: '', reason: '', location: '' };
     const [formData, setFormData] = useState(initialValue);
     const [submittedData, setSubmittedData] = useState([]);
-    // const [editMode, setEditMode] = useState(false);
 
     const isFormValid = formData.user && formData.reason && formData.location;
 
@@ -32,13 +31,19 @@ const InputForm = () => {
 
     const handleEdit = (index) => {
         const updatedData = [...submittedData];
-        updatedData[index].editing = true; 
+        updatedData[index].editing = true;
         setSubmittedData(updatedData);
     };
 
     const handleSave = (index) => {
         const updatedData = [...submittedData];
-        updatedData[index].editing = false; 
+        updatedData[index].editing = false;
+        setSubmittedData(updatedData);
+    };
+
+    const handleCancel = (index) => {
+        const updatedData = [...submittedData];
+        updatedData[index].editing = false;
         setSubmittedData(updatedData);
     };
 
@@ -48,8 +53,6 @@ const InputForm = () => {
         updatedData[index][name] = value;
         setSubmittedData(updatedData);
     };
-// Jokhun edit button change hoe save hobe tokhun input field gulo open hobe change korar jonno.
-// Change korar por oi submited data update hoe jabe.
 
     return (
         <div className="flex justify-center items-center h-screen">
@@ -82,8 +85,8 @@ const InputForm = () => {
                             {data.editing ? (
                                 <>
                                     <div className="mb-2">
-                                        <label htmlFor={`user_${index}`} className="block text-gray-700 text-sm font-bold mb-2">User:</label>
-                                        <input type="text" id={`user_${index}`} name="user" value={data.user} onChange={(e) => handleInputChange(e, index)} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
+                                        <label className="block text-gray-700 text-sm font-bold mb-2">User:</label>
+                                        <input type="text" name="user" value={data.user} onChange={(e) => handleInputChange(e, index)} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
                                     </div>
                                     <div className="mb-2">
                                         <label htmlFor={`reason_${index}`} className="block text-gray-700 text-sm font-bold mb-2">Reason:</label>
@@ -96,6 +99,9 @@ const InputForm = () => {
                                     <Button variant="contained" onClick={() => handleSave(index)}>
                                         Save
                                     </Button>
+                                    <Button variant="contained" onClick={() => handleCancel(index)}>
+                                        Cancel
+                                    </Button>
                                 </>
                             ) : (
                                 <>
@@ -105,11 +111,11 @@ const InputForm = () => {
                                     <Button variant="contained" onClick={() => handleEdit(index)}>
                                         Edit
                                     </Button>
+                                    <Button variant="contained" onClick={() => handleDelete(index)}>
+                                        Delete
+                                    </Button>
                                 </>
                             )}
-                            <Button variant="contained" onClick={() => handleDelete(index)}>
-                                Delete
-                            </Button>
                         </div>
                     ))}
                 </div>
