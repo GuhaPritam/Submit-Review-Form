@@ -97,19 +97,21 @@ const InputForm = () => {
                                         <input type="text" name="user" value={data.user} onChange={(e) => handleInputChange(e, index)} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
                                     </div>
                                     <div className="mb-2">
-                                        <label htmlFor={`reason_${index}`} className="block text-gray-700 text-sm font-bold mb-2">Reason:</label>
-                                        <input type="text" id={`reason_${index}`} name="reason" value={data.reason} onChange={(e) => handleInputChange(e, index)} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
+                                        <label className="block text-gray-700 text-sm font-bold mb-2">Reason:</label>
+                                        <input type="text" name="reason" value={data.reason} onChange={(e) => handleInputChange(e, index)} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
                                     </div>
                                     <div className="mb-2">
-                                        <label htmlFor={`location_${index}`} className="block text-gray-700 text-sm font-bold mb-2">Location:</label>
-                                        <input type="text" id={`location_${index}`} name="location" value={data.location} onChange={(e) => handleInputChange(e, index)} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
+                                        <label className="block text-gray-700 text-sm font-bold mb-2">Location:</label>
+                                        <input type="text" name="location" value={data.location} onChange={(e) => handleInputChange(e, index)} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
                                     </div>
-                                    <Button variant="contained" onClick={() => handleSave(index)}>
-                                        Save
-                                    </Button>
-                                    <Button variant="contained" onClick={() => handleCancel(index)}>
-                                        Cancel
-                                    </Button>
+                                    <div className='flex space-x-4'>
+                                        <Button variant="contained" onClick={() => handleSave(index)}>
+                                            Save
+                                        </Button>
+                                        <Button variant="contained" onClick={() => handleCancel(index)}>
+                                            Cancel
+                                        </Button>
+                                    </div>
                                 </>
                             ) : (
                                 <>
