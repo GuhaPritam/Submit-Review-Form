@@ -33,8 +33,9 @@ const InputForm = () => {
     const handleEdit = (index) => {
         const updatedData = [...submittedData];
         updatedData[index].editing = true;
-        setCancelData({ ...submittedData[index] });
+        setCancelData({ ...updatedData[index] });
         setSubmittedData(updatedData);
+        console.log(updatedData)
     };
 
     const handleSave = (index) => {
@@ -45,7 +46,7 @@ const InputForm = () => {
 
     const handleCancel = (index) => {
         const updatedData = [...submittedData];
-        // console.log(cancelData)
+        console.log(cancelData)
         if (cancelData) {
             updatedData[index] = cancelData;
             setCancelData(null);
