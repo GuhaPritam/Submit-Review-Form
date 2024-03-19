@@ -104,7 +104,7 @@ const InputForm = () => {
                                         <label className="block text-gray-700 text-sm font-bold mb-2">Location:</label>
                                         <input type="text" name="location" value={data.location} onChange={(e) => handleInputChange(e, index)} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
                                     </div>
-                                    <div className='flex space-x-4'>
+                                    <div className="flex justify-between">
                                         <Button variant="contained" onClick={() => handleSave(index)}>
                                             Save
                                         </Button>
@@ -117,13 +117,15 @@ const InputForm = () => {
                                 <>
                                     <p>User: {data.user}</p>
                                     <p>Reason: {data.reason}</p>
-                                    <p>Location: {data.location}</p>
-                                    <Button variant="contained" onClick={() => handleEdit(index)}>
-                                        Edit
-                                    </Button>
-                                    <Button variant="contained" onClick={() => handleDelete(index)}>
-                                        Delete
-                                    </Button>
+                                    <p className='mb-2'>Location: {data.location}</p>
+                                    <div className="flex justify-between">
+                                        <Button variant="contained" onClick={() => handleEdit(index)}>
+                                            Edit
+                                        </Button>
+                                        <Button variant="contained" onClick={() => handleDelete(index)}>
+                                            Delete
+                                        </Button>
+                                    </div>
                                 </>
                             )}
                         </div>
