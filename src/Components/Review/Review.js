@@ -69,16 +69,16 @@ const InputForm = () => {
                     <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                         <form onSubmit={handleSubmit}>
                             <div className="mb-4">
-                                <label htmlFor="user" className="block text-gray-700 text-sm font-bold mb-2">User:</label>
-                                <input type="text" id="user" name="user" value={formData.user} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
+                                <label className="block text-gray-700 text-sm font-bold mb-2">User:</label>
+                                <input type="text" name="user" value={formData.user} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
                             </div>
                             <div className="mb-4">
-                                <label htmlFor="reason" className="block text-gray-700 text-sm font-bold mb-2">Reason:</label>
-                                <input type="text" id="reason" name="reason" value={formData.reason} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
+                                <label className="block text-gray-700 text-sm font-bold mb-2">Reason:</label>
+                                <input type="text" name="reason" value={formData.reason} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
                             </div>
                             <div className="mb-4">
-                                <label htmlFor="location" className="block text-gray-700 text-sm font-bold mb-2">Location:</label>
-                                <input type="text" id="location" name="location" value={formData.location} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
+                                <label className="block text-gray-700 text-sm font-bold mb-2">Location:</label>
+                                <input type="text" name="location" value={formData.location} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
                             </div>
                             <button type="submit" disabled={!isFormValid} className={`bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md focus:outline-none focus:shadow-outline ${!isFormValid && 'opacity-50 cursor-not-allowed'}`}>
                                 Submit
