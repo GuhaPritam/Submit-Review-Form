@@ -2,10 +2,10 @@ import { Button } from '@mui/material';
 import React, { useState } from 'react';
 
 const InputForm = () => {
-    const initialValue = { user: '', reason: '', location: '' }
+    const initialValue = { user: '', reason: '', location: '' };
     const [formData, setFormData] = useState(initialValue);
     const [submittedData, setSubmittedData] = useState([]);
-    const [editMode, setEditMode] = useState(false);
+    const [cancelData, setCancelData] = useState(null)
 
     const isFormValid = formData.user && formData.reason && formData.location;
 
@@ -19,8 +19,8 @@ const InputForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const currentTime = new Date().toLocaleTimeString();
-        const newData = { ...formData, time: currentTime, number: submittedData.length + 1 };
+        // const currentTime = new Date().toLocaleTimeString();
+        const newData = { ...formData, number: submittedData.length + 1 };
         setSubmittedData([...submittedData, newData]);
         setFormData(initialValue);
     };
@@ -30,8 +30,36 @@ const InputForm = () => {
         setSubmittedData(updatedData);
     };
 
-    const handleEdit = () => {
-        setEditMode(!editMode)
+    const handleEdit = (index) => {
+        const updatedData = [...submittedData];
+        updatedData[index].editing = true;
+        setCancelData({ ...updatedData[index] });
+        setSubmittedData(updatedData);
+    };
+
+
+    const handleSave = (index) => {
+        const updatedData = [...submittedData];
+        updatedData[index].editing = false;
+        setSubmittedData(updatedData);
+    };
+
+    const handleCancel = (index) => {
+        const updatedData = [...submittedData];
+        console.log(cancelData)
+        if (cancelData) {
+            updatedData[index] = cancelData;
+            setCancelData(null);
+        }
+        updatedData[index].editing = false;
+        setSubmittedData(updatedData);
+    };
+
+    const handleInputChange = (e, index) => {
+        const { name, value } = e.target;
+        const updatedData = [...submittedData];
+        updatedData[index][name] = value;
+        setSubmittedData(updatedData);
     };
 
     return (
@@ -41,16 +69,16 @@ const InputForm = () => {
                     <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                         <form onSubmit={handleSubmit}>
                             <div className="mb-4">
-                                <label htmlFor="user" className="block text-gray-700 text-sm font-bold mb-2">User:</label>
-                                <input type="text" id="user" name="user" value={formData.user} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
+                                <label className="block text-gray-700 text-sm font-bold mb-2">User:</label>
+                                <input type="text" name="user" value={formData.user} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
                             </div>
                             <div className="mb-4">
-                                <label htmlFor="reason" className="block text-gray-700 text-sm font-bold mb-2">Reason:</label>
-                                <input type="text" id="reason" name="reason" value={formData.reason} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
+                                <label className="block text-gray-700 text-sm font-bold mb-2">Reason:</label>
+                                <input type="text" name="reason" value={formData.reason} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
                             </div>
                             <div className="mb-4">
-                                <label htmlFor="location" className="block text-gray-700 text-sm font-bold mb-2">Location:</label>
-                                <input type="text" id="location" name="location" value={formData.location} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
+                                <label className="block text-gray-700 text-sm font-bold mb-2">Location:</label>
+                                <input type="text" name="location" value={formData.location} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
                             </div>
                             <button type="submit" disabled={!isFormValid} className={`bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md focus:outline-none focus:shadow-outline ${!isFormValid && 'opacity-50 cursor-not-allowed'}`}>
                                 Submit
@@ -62,16 +90,44 @@ const InputForm = () => {
                     {submittedData.map((data, index) => (
                         <div key={index} className="bg-gray-200 rounded-md px-4 py-2 mb-4">
                             <h2 className="text-lg font-bold mb-2">Submitted Data {data.number}:</h2>
-                            <p>User: {data.user}</p>
-                            <p>Reason: {data.reason}</p>
-                            <p>Location: {data.location}</p>
-                            <p>Time: {data.time}</p>
-                            <Button variant="contained" onClick={() => handleEdit()}>
-                                {editMode ? 'Save' : 'Edit'}
-                            </Button>
-                            <Button variant="contained" onClick={() => handleDelete(index)}>
-                                Delete
-                            </Button>
+                            {data.editing ? (
+                                <>
+                                    <div className="mb-2">
+                                        <label className="block text-gray-700 text-sm font-bold mb-2">User:</label>
+                                        <input type="text" name="user" value={data.user} onChange={(e) => handleInputChange(e, index)} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
+                                    </div>
+                                    <div className="mb-2">
+                                        <label className="block text-gray-700 text-sm font-bold mb-2">Reason:</label>
+                                        <input type="text" name="reason" value={data.reason} onChange={(e) => handleInputChange(e, index)} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
+                                    </div>
+                                    <div className="mb-2">
+                                        <label className="block text-gray-700 text-sm font-bold mb-2">Location:</label>
+                                        <input type="text" name="location" value={data.location} onChange={(e) => handleInputChange(e, index)} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
+                                    </div>
+                                    <div className="flex justify-between">
+                                        <Button variant="contained" onClick={() => handleSave(index)}>
+                                            Save
+                                        </Button>
+                                        <Button variant="contained" onClick={() => handleCancel(index)}>
+                                            Cancel
+                                        </Button>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    <p><span className="font-bold mr-1">User:</span> {data.user}</p>
+                                    <p><span className="font-bold mr-1">Reason:</span> {data.reason}</p>
+                                    <p className="mb-2"><span className="font-bold mr-1">Location:</span> {data.location}</p>
+                                    <div className="flex justify-between">
+                                        <Button variant="contained" onClick={() => handleEdit(index)}>
+                                            Edit
+                                        </Button>
+                                        <Button variant="contained" onClick={() => handleDelete(index)}>
+                                            Delete
+                                        </Button>
+                                    </div>
+                                </>
+                            )}
                         </div>
                     ))}
                 </div>
