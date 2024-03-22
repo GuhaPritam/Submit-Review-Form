@@ -19,8 +19,8 @@ const InputForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const currentTime = new Date().toLocaleTimeString();
-        const newData = { ...formData, time: currentTime, number: submittedData.length + 1 };
+        // const currentTime = new Date().toLocaleTimeString();
+        const newData = { ...formData, number: submittedData.length + 1 };
         setSubmittedData([...submittedData, newData]);
         setFormData(initialValue);
     };
@@ -35,8 +35,8 @@ const InputForm = () => {
         updatedData[index].editing = true;
         setCancelData({ ...updatedData[index] });
         setSubmittedData(updatedData);
-        console.log(updatedData)
     };
+
 
     const handleSave = (index) => {
         const updatedData = [...submittedData];
@@ -47,7 +47,7 @@ const InputForm = () => {
     const handleCancel = (index) => {
         const updatedData = [...submittedData];
         console.log(cancelData)
-        if (cancelData) {
+        if (cancelData) { 
             updatedData[index] = cancelData;
             setCancelData(null);
         }
