@@ -47,7 +47,7 @@ const InputForm = () => {
     const handleCancel = (index) => {
         const updatedData = [...submittedData];
         console.log(cancelData)
-        if (cancelData) { 
+        if (cancelData) {
             updatedData[index] = cancelData;
             setCancelData(null);
         }
@@ -115,9 +115,9 @@ const InputForm = () => {
                                 </>
                             ) : (
                                 <>
-                                    <p>User: {data.user}</p>
-                                    <p>Reason: {data.reason}</p>
-                                    <p className='mb-2'>Location: {data.location}</p>
+                                    <p><span className="font-bold mr-1">User:</span> {data.user}</p>
+                                    <p><span className="font-bold mr-1">Reason:</span> {data.reason}</p>
+                                    <p className="mb-2"><span className="font-bold mr-1">Location:</span> {data.location}</p>
                                     <div className="flex justify-between">
                                         <Button variant="contained" onClick={() => handleEdit(index)}>
                                             Edit
