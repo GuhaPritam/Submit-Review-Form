@@ -2,7 +2,7 @@
 Review Submit form
 
 ### Project Address:
-[https://react-darkmode-form-builder.netlify.app/](https://react-darkmode-form-builder.netlify.app/)
+[https://github.com/CupOfSolution/Submit-Review-Form](https://github.com/CupOfSolution/Submit-Review-Form)
 
 ## Project Description:
 You can use this website to submit your review. Once submitted, you have the option to edit the inputs or delete the submitted data.
